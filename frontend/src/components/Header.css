@@ -1,0 +1,130 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  height: 56px;
+  background-color: var(--header-bg);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.menu-btn {
+  padding: 8px;
+  border-radius: 50%;
+}
+
+.menu-btn:hover, .icon-btn:hover, .mic-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+.youtube-logo {
+  height: 20px;
+  background-color: white; /* YouTube logo needs a white background or use a dark mode version */
+  padding: 2px;
+  border-radius: 2px;
+}
+
+.header-center {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  max-width: 720px;
+  margin: 0 40px;
+  gap: 16px;
+}
+
+.search-form {
+  display: flex;
+  flex: 1;
+  border: 1px solid var(--border-color);
+  border-radius: 40px;
+  background-color: #121212;
+  overflow: hidden;
+}
+
+.search-form input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  color: var(--text-color);
+  padding: 2px 16px;
+  font-size: 16px;
+  outline: none;
+}
+
+.search-btn {
+  background-color: #222222;
+  padding: 4px 20px;
+  border-left: 1px solid var(--border-color);
+  color: var(--text-color);
+}
+
+.search-btn:hover {
+  background-color: var(--hover-bg);
+}
+
+.mic-btn {
+  background-color: #181818;
+  padding: 10px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.icon-btn {
+  padding: 8px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+}
+
+.sign-in-btn {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #3ea6ff;
+  border: 1px solid #3ea6ff;
+  border-radius: 20px;
+  padding: 6px 16px;
+  font-weight: 500;
+  transition: all 0.2s;
+}
+
+.sign-in-btn:hover {
+  background-color: rgba(62, 166, 255, 0.2);
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.username {
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.logout-btn {
+  color: #aaa;
+  font-size: 14px;
+}
+.logout-btn:hover {
+  color: white;
+}

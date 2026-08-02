@@ -1,0 +1,131 @@
+.sidebar {
+  width: var(--sidebar-width);
+  height: calc(100vh - 56px);
+  position: fixed;
+  top: 56px;
+  left: 0;
+  background-color: var(--bg-color);
+  overflow-y: auto;
+  transition: width var(--transition-speed);
+  z-index: 90;
+}
+
+.sidebar.closed {
+  width: var(--sidebar-collapsed-width);
+}
+
+.sidebar.closed .link-text,
+.sidebar.closed .sidebar-subtitle,
+.sidebar.closed .auth-section {
+  display: none;
+}
+
+.sidebar-section {
+  padding: 12px 12px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  padding: 10px 12px;
+  border-radius: 10px;
+  gap: 24px;
+  color: var(--text-color);
+  font-size: 14px;
+}
+
+.sidebar.closed .sidebar-link {
+  flex-direction: column;
+  gap: 4px;
+  font-size: 10px;
+  padding: 16px 0;
+}
+
+.sidebar.closed .sidebar-link .link-text {
+  display: block;
+  font-size: 10px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  width: 100%;
+  text-align: center;
+}
+
+.sidebar-link:hover {
+  background-color: var(--hover-bg);
+}
+
+.sidebar-link.active {
+  background-color: var(--hover-bg);
+  font-weight: 500;
+}
+
+.sidebar-divider {
+  height: 1px;
+  background-color: var(--border-color);
+  margin: 0 0;
+}
+
+.sidebar-subtitle {
+  font-size: 16px;
+  font-weight: 500;
+  padding: 8px 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.auth-section {
+  padding: 16px 24px;
+}
+
+.auth-section p {
+  font-size: 14px;
+  margin-bottom: 12px;
+  color: var(--text-color);
+}
+
+.mt-2 {
+  margin-top: 12px;
+}
+
+@media (max-width: 1200px) {
+  .sidebar {
+    width: var(--sidebar-collapsed-width);
+  }
+  .sidebar .link-text,
+  .sidebar .sidebar-subtitle,
+  .sidebar .auth-section {
+    display: none;
+  }
+  .sidebar .sidebar-link {
+    flex-direction: column;
+    gap: 4px;
+    padding: 16px 0;
+  }
+  .sidebar .sidebar-link .link-text {
+    display: block;
+    font-size: 10px;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+    width: var(--sidebar-width);
+  }
+  .sidebar.open {
+    transform: translateX(0);
+  }
+  .sidebar.open .link-text,
+  .sidebar.open .sidebar-subtitle,
+  .sidebar.open .auth-section {
+    display: block;
+  }
+  .sidebar.open .sidebar-link {
+    flex-direction: row;
+    gap: 24px;
+    padding: 10px 12px;
+  }
+}
