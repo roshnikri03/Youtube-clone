@@ -8,7 +8,7 @@ import commentRoutes from './routes/commentRoutes.js';
 
 
 // Connect to database
-await connectDB();
+connectDB();
 
 const app = express();
 
@@ -22,17 +22,20 @@ app.use('/api/channels', channelRoutes);
 app.use('/api/videos', videoRoutes);
 app.use('/api/comments', commentRoutes);
 
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
 app.get('/', (req, res) => {
   res.send('API is running...');
 });
 
-const PORT = 5000;
+const PORT = 5001;
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
-
-// roshnikumari90403_db_user
-// P3slRESfBDmcFeNP
-// mongodb+srv://<db_username>:P3slRESfBDmcFeNP@cluster0.l4psoig.mongodb.net/?appName=Cluster0
