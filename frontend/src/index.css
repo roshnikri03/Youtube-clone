@@ -107,6 +107,11 @@ input, textarea {
   margin-left: var(--sidebar-collapsed-width);
 }
 
+.page-content.video-page-content {
+  margin-left: 0;
+  padding-top: 16px; /* Adjust padding if needed, but 0 margin is key */
+}
+
 @media (max-width: 1200px) {
   .page-content.sidebar-open {
     margin-left: var(--sidebar-collapsed-width);
