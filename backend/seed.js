@@ -29,20 +29,31 @@ const seedData = async () => {
 
     console.log('User created:', createdUser.username);
 
-    // 2. Create a channel for the user
-    const createdChannel = await Channel.create({
-      channelName: 'Code with John',
-      owner: createdUser._id,
-      description: 'Coding tutorials and tech reviews by John Doe.',
-      channelBanner: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
-      subscribers: 5200,
-    });
-    
-    // Add channel to user
-    createdUser.channels.push(createdChannel._id);
+    // Create one sample channel per video so the home page represents multiple creators.
+    const channelDetails = [
+      ['React Academy', 'React tutorials and frontend patterns.', 5200],
+      ['JavaScript Simplified', 'Practical JavaScript lessons for every level.', 8900],
+      ['Backend Builders', 'Scalable Node.js and backend architecture.', 4500],
+      ['Web Craft Studio', 'Modern web development ideas and trends.', 3100],
+      ['Late Night Lo-Fi', 'Relaxing music for coding and study sessions.', 12500],
+      ['Pixel Perfect Gaming', 'Gaming setups, hardware, and desk tours.', 7600],
+    ];
+
+    const createdChannels = await Channel.create(
+      channelDetails.map(([channelName, description, subscribers]) => ({
+        channelName,
+        owner: createdUser._id,
+        description,
+        channelBanner: 'https://images.unsplash.com/photo-1550439062-609e1531270e?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80',
+        subscribers,
+      }))
+    );
+
+    // Add every sample channel reference to the seeded user's profile.
+    createdUser.channels.push(...createdChannels.map((channel) => channel._id));
     await createdUser.save();
 
-    console.log('Channel created:', createdChannel.channelName);
+    console.log(`${createdChannels.length} channels created.`);
 
     // 3. Create sample videos
     const videos = [
@@ -51,7 +62,7 @@ const seedData = async () => {
         thumbnailUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80',
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
         description: 'A quick tutorial to get started with React.',
-        channelId: createdChannel._id,
+        channelId: createdChannels[0]._id,
         uploader: createdUser._id,
         views: 15200,
         likes: 1023,
@@ -63,7 +74,7 @@ const seedData = async () => {
         thumbnailUrl: 'https://images.unsplash.com/photo-1579468118864-1b9ea3c0db4a?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80',
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
         description: 'Master JavaScript from scratch.',
-        channelId: createdChannel._id,
+        channelId: createdChannels[1]._id,
         uploader: createdUser._id,
         views: 89000,
         likes: 5400,
@@ -75,7 +86,7 @@ const seedData = async () => {
         thumbnailUrl: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80',
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
         description: 'Learn how to build scalable backend systems.',
-        channelId: createdChannel._id,
+        channelId: createdChannels[2]._id,
         uploader: createdUser._id,
         views: 45000,
         likes: 3200,
@@ -87,7 +98,7 @@ const seedData = async () => {
         thumbnailUrl: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80',
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
         description: 'Stay ahead of the curve with these web dev trends.',
-        channelId: createdChannel._id,
+        channelId: createdChannels[3]._id,
         uploader: createdUser._id,
         views: 12000,
         likes: 800,
@@ -99,7 +110,7 @@ const seedData = async () => {
         thumbnailUrl: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80',
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
         description: 'Chill beats to code/study to.',
-        channelId: createdChannel._id,
+        channelId: createdChannels[4]._id,
         uploader: createdUser._id,
         views: 2000000,
         likes: 150000,
@@ -111,7 +122,7 @@ const seedData = async () => {
         thumbnailUrl: 'https://images.unsplash.com/photo-1593640408182-31c70c8268f5?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80',
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
         description: 'Tour of my ultimate productivity and gaming setup.',
-        channelId: createdChannel._id,
+        channelId: createdChannels[5]._id,
         uploader: createdUser._id,
         views: 500000,
         likes: 34000,
@@ -122,9 +133,13 @@ const seedData = async () => {
 
     const createdVideos = await Video.insertMany(videos);
     
-    // Keep the channel's video reference list synchronized with the inserted documents.
-    createdChannel.videos = createdVideos.map(v => v._id);
-    await createdChannel.save();
+    // Keep each channel's video reference list synchronized with its assigned video.
+    await Promise.all(
+      createdChannels.map((channel, index) => {
+        channel.videos = [createdVideos[index]._id];
+        return channel.save();
+      })
+    );
 
     console.log(`${createdVideos.length} Videos created.`);
 
