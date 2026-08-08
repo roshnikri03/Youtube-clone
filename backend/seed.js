@@ -71,7 +71,7 @@ const seedData = async () => {
       },
       {
         title: 'Node.js Backend Architecture',
-        thumbnailUrl: 'https://images.unsplash.com/photo-1627398225056-f3a4115162a0?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80',
+        thumbnailUrl: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=640&q=80',
         videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
         description: 'Learn how to build scalable backend systems.',
         channelId: createdChannel._id,
