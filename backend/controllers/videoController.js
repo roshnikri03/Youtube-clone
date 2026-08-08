@@ -55,7 +55,19 @@ export const getVideoById = async (req, res) => {
 // @route   POST /api/videos
 // @access  Private
 export const createVideo = async (req, res) => {
-  const { title, description, videoUrl, thumbnailUrl, category } = req.body;
+  const { title, description, category } = req.body;
+  
+  let videoUrl = req.body.videoUrl;
+  let thumbnailUrl = req.body.thumbnailUrl;
+
+  if (req.files) {
+    if (req.files.video) {
+      videoUrl = `http://localhost:5001/uploads/${req.files.video[0].filename}`;
+    }
+    if (req.files.thumbnail) {
+      thumbnailUrl = `http://localhost:5001/uploads/${req.files.thumbnail[0].filename}`;
+    }
+  }
 
   try {
     const channel = await Channel.findOne({ owner: req.user._id });
@@ -99,8 +111,22 @@ export const updateVideo = async (req, res) => {
 
       video.title = req.body.title || video.title;
       video.description = req.body.description || video.description;
-      video.thumbnailUrl = req.body.thumbnailUrl || video.thumbnailUrl;
       video.category = req.body.category || video.category;
+      
+      let newVideoUrl = req.body.videoUrl;
+      let newThumbnailUrl = req.body.thumbnailUrl;
+
+      if (req.files) {
+        if (req.files.video) {
+          newVideoUrl = `http://localhost:5001/uploads/${req.files.video[0].filename}`;
+        }
+        if (req.files.thumbnail) {
+          newThumbnailUrl = `http://localhost:5001/uploads/${req.files.thumbnail[0].filename}`;
+        }
+      }
+
+      video.videoUrl = newVideoUrl || video.videoUrl;
+      video.thumbnailUrl = newThumbnailUrl || video.thumbnailUrl;
 
       const updatedVideo = await video.save();
       res.json(updatedVideo);
