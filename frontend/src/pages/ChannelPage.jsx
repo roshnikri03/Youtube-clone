@@ -14,10 +14,11 @@ const ChannelPage = () => {
   const [showVideoModal, setShowVideoModal] = useState(false);
   const [channelName, setChannelName] = useState('');
   
-  // Video Form State
+  // The same form supports both create and edit by carrying an optional video id.
   const [videoForm, setVideoForm] = useState({ id: null, title: '', description: '', videoFile: null, thumbnailFile: null, category: 'Web Development' });
 
   useEffect(() => {
+    // A channel is private to its owner, so do not request it until auth has loaded.
     const fetchChannel = async () => {
       if (!user) return setLoading(false);
       try {
@@ -46,6 +47,7 @@ const ChannelPage = () => {
   const handleVideoSubmit = async (e) => {
     e.preventDefault();
     try {
+      // Multipart form data carries the metadata and optional media files together.
       const formData = new FormData();
       formData.append('title', videoForm.title);
       formData.append('description', videoForm.description);

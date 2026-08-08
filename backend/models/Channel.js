@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const channelSchema = mongoose.Schema(
   {
+    // The owner reference enforces the one-channel-per-user workflow in the controller.
     channelName: {
       type: String,
       required: true,

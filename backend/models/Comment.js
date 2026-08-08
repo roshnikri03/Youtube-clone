@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const commentSchema = mongoose.Schema(
   {
+    // Comments belong to both a video and the user who wrote them.
     text: {
       type: String,
       required: true,

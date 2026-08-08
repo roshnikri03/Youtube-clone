@@ -3,6 +3,7 @@ import bcrypt from 'bcryptjs';
 
 const userSchema = mongoose.Schema(
   {
+    // A user may own multiple channels, so channels are stored as references.
     username: {
       type: String,
       required: true,
@@ -38,7 +39,7 @@ userSchema.methods.matchPassword = async function (enteredPassword) {
   return await bcrypt.compare(enteredPassword, this.password);
 };
 
-// Pre-save middleware to hash password
+// Hash only when the password changes, preventing double-hashing on normal updates.
 userSchema.pre('save', async function () {
   if (!this.isModified('password')) {
     return;

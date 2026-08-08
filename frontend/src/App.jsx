@@ -9,8 +9,10 @@ import RegisterPage from './pages/RegisterPage';
 import VideoPage from './pages/VideoPage';
 
 function AppShell() {
+  // Keep sidebar state at the app-shell level so the header can toggle it.
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const { pathname } = useLocation();
+  // YouTube's watch view uses the full width and does not show the home sidebar.
   const isWatchPage = pathname.startsWith('/video/');
 
   const toggleSidebar = () => {
@@ -40,6 +42,7 @@ function AppShell() {
 }
 
 function App() {
+  // BrowserRouter supplies navigation context to the header, sidebar, and page components.
   return (
     <BrowserRouter>
       <AppShell />

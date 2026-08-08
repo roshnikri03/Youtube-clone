@@ -24,6 +24,7 @@ const HomePage = () => {
   const searchTerm = searchParams.get('search');
 
   useEffect(() => {
+    // Search and category changes share one request so the grid always reflects both filters.
     const fetchVideos = async () => {
       setLoading(true);
       try {

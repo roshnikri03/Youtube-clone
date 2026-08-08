@@ -13,6 +13,7 @@ connectDB();
 const app = express();
 
 // Middleware
+// Parse JSON request bodies and allow the Vite frontend to call this API during development.
 app.use(cors());
 app.use(express.json());
 
@@ -28,6 +29,7 @@ import { fileURLToPath } from 'url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+// Serve uploaded media through stable URLs stored in the video documents.
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 app.use('/thumbnails', express.static(path.join(__dirname, 'thumbnails')));
 

@@ -1,7 +1,7 @@
 import multer from 'multer';
 import path from 'path';
 
-// Set storage engine
+// Store uploaded videos and thumbnails on disk; only their URLs are saved in MongoDB.
 const storage = multer.diskStorage({
   destination(req, file, cb) {
     cb(null, 'uploads/');

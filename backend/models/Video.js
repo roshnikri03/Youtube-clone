@@ -2,6 +2,7 @@ import mongoose from 'mongoose';
 
 const videoSchema = mongoose.Schema(
   {
+    // Video metadata is stored here while the media itself is referenced by URL.
     title: {
       type: String,
       required: true,
@@ -46,6 +47,7 @@ const videoSchema = mongoose.Schema(
     },
     comments: [
       {
+        // Keep comment ids on the video for efficient relationship tracking.
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Comment',
       },

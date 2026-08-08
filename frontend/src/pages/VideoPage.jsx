@@ -17,6 +17,7 @@ const VideoPage = () => {
   const [editCommentText, setEditCommentText] = useState('');
 
   useEffect(() => {
+    // Load the selected video and its flat comment list in parallel for the watch page.
     const fetchVideoData = async () => {
       try {
         const [videoRes, commentsRes] = await Promise.all([
@@ -34,6 +35,7 @@ const VideoPage = () => {
   }, [id]);
 
   const handleLike = async () => {
+    // Likes require authentication; the API updates the persisted counter.
     if (!user) return alert('Please sign in to like videos');
     try {
       const { data } = await axios.put(`http://localhost:5001/api/videos/${id}/like`, {}, { headers: getAuthHeaders() });

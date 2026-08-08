@@ -11,6 +11,7 @@ const Header = ({ toggleSidebar }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
+    // Query parameters make searches bookmarkable and let HomePage refetch filtered data.
     if (searchTerm.trim()) {
       navigate(`/?search=${searchTerm}`);
     }
@@ -54,6 +55,7 @@ const Header = ({ toggleSidebar }) => {
       </div>
 
       <div className="header-right">
+        {/* Authenticated and anonymous users receive different header actions. */}
         {user ? (
           <>
             <Link to="/channel/my-channel" className="icon-btn">

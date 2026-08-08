@@ -6,6 +6,7 @@ import Comment from './models/Comment.js';
 import connectDB from './config/db.js';
 
 
+// Connect before issuing any destructive or insert operations.
 connectDB();
 
 const seedData = async () => {
@@ -121,7 +122,7 @@ const seedData = async () => {
 
     const createdVideos = await Video.insertMany(videos);
     
-    // Add videos to channel
+    // Keep the channel's video reference list synchronized with the inserted documents.
     createdChannel.videos = createdVideos.map(v => v._id);
     await createdChannel.save();
 

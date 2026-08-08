@@ -4,9 +4,10 @@ import User from '../models/User.js';
 export const protect = async (req, res, next) => {
   let token;
 
+  // Accept the standard Bearer scheme used by the React client (and JWT for compatibility).
   if (
     req.headers.authorization &&
-    req.headers.authorization.startsWith('JWT')
+    (req.headers.authorization.startsWith('Bearer ') || req.headers.authorization.startsWith('JWT '))
   ) {
     try {
       token = req.headers.authorization.split(' ')[1];

@@ -4,10 +4,12 @@ import axios from 'axios';
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
+  // Keep the session available after a browser refresh without exposing the password.
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    // The API returns the JWT with the user profile, so restore both from local storage.
     const userInfo = localStorage.getItem('userInfo');
     if (userInfo) {
       setUser(JSON.parse(userInfo));
@@ -26,6 +28,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   const getAuthHeaders = () => {
+    // Protected API calls spread this object into Axios request headers.
     if (user && user.token) {
       return { Authorization: `Bearer ${user.token}` };
     }
