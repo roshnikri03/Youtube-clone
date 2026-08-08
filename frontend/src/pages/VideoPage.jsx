@@ -104,6 +104,81 @@ const VideoPage = () => {
   if (loading) return <div className="loading">Loading video...</div>;
   if (!video) return <div className="error">Video not found</div>;
 
+  const recommendedVideos = [
+    {
+      id: 'rec1',
+      title: 'How to Speak Like a Leader',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-16-56-45.jpg',
+      channelName: 'TED',
+      views: '2.8M views',
+      date: '13 years ago'
+    },
+    {
+      id: 'rec2',
+      title: '5 Practical Ways to Take Control',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-16-56-45 2.jpg',
+      channelName: 'TED',
+      views: '2.2M views',
+      date: '2 months ago'
+    },
+    {
+      id: 'rec4',
+      title: 'How to Articulate Your Thoughts',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-16-56-45 4.jpg',
+      channelName: 'Leila Hormozi',
+      views: '3.9M views',
+      date: '11 months ago'
+    },
+    {
+      id: 'rec5',
+      title: 'Stop Translating! How to Think in English',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-16-56-45 5.jpg',
+      channelName: 'English with Lucy',
+      views: '1.3M views',
+      date: '5 months ago'
+    },
+    {
+      id: 'rec6',
+      title: 'A Day in the Life of a Software Engineer',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-17-10-30 2.jpg',
+      channelName: 'Tech Explorer',
+      views: '850K views',
+      date: '1 week ago'
+    },
+    {
+      id: 'rec7',
+      title: 'The Future of Artificial Intelligence',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-17-10-30.jpg',
+      channelName: 'Future Tech',
+      views: '1.2M views',
+      date: '3 weeks ago'
+    },
+    {
+      id: 'rec8',
+      title: 'Minimalist Desk Setup 2026',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-17-10-31 2.jpg',
+      channelName: 'Design Workspace',
+      views: '420K views',
+      date: '2 months ago'
+    },
+    {
+      id: 'rec9',
+      title: 'Advanced React Patterns',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-17-10-31 3.jpg',
+      channelName: 'Frontend Masters',
+      views: '150K views',
+      date: '5 days ago'
+    },
+    {
+      id: 'rec10',
+      title: 'Mastering Next.js 14 App Router',
+      thumbnail: 'http://localhost:5001/thumbnails/PHOTO-2026-08-08-17-10-31.jpg',
+      channelName: 'CodeWithMe',
+      views: '670K views',
+      date: '1 month ago'
+    }
+  ];
+
   return (
     <div className="video-page">
       <div className="video-player-section">
@@ -213,7 +288,16 @@ const VideoPage = () => {
         </div>
       </div>
       <div className="recommended-videos">
-        {/* Recommended videos could go here */}
+        {recommendedVideos.map((recVideo) => (
+          <div key={recVideo.id} className="rec-video-card">
+            <img src={recVideo.thumbnail} alt={recVideo.title} className="rec-thumbnail" />
+            <div className="rec-video-info">
+              <h4 className="rec-video-title">{recVideo.title}</h4>
+              <p className="rec-channel-name">{recVideo.channelName}</p>
+              <p className="rec-views-date">{recVideo.views} • {recVideo.date}</p>
+            </div>
+          </div>
+        ))}
       </div>
     </div>
   );
