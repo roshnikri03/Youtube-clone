@@ -1,7 +1,7 @@
 import { useState, useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-import { AuthContext } from '../../../../Youtube/frontend/src/context/AuthContext';
+import { AuthContext } from '../context/AuthContext';
 import './Auth.css';
 
 const RegisterPage = () => {
@@ -27,7 +27,6 @@ const RegisterPage = () => {
         email,
         password,
       });
-      // The requirement says: After successful registration, the user should be automatically redirected to the login page.
       navigate('/login');
     } catch (err) {
       setError(err.response?.data?.message || 'Failed to register');
