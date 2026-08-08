@@ -13,6 +13,11 @@ A MERN stack YouTube clone built with React, React Router, Axios, Express, Mongo
 - Upload video and thumbnail files through the protected channel workflow
 - MongoDB relationships between users, channels, videos, and comments
 
+## Links
+
+- Video demonstration: [Google Drive](https://drive.google.com/file/d/1CWinUTxIQpESr38j0X-T1Q95gJnW1dzk/view?usp=sharing)
+- GitHub repository: [Youtube-clone](https://github.com/roshnikri03/Youtube-clone)
+
 ## Project Structure
 
 ```text
